@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,12 +9,24 @@ import { Users, Calendar, CreditCard, Clock, HeartPulse } from "lucide-react";
 import { toast } from "sonner";
 
 export const TicketBooking = () => {
+  const [searchParams] = useSearchParams();
   const [bookingType, setBookingType] = useState<string>("");
   const [visitors, setVisitors] = useState(1);
   const [kids, setKids] = useState(0);
   const [elderly, setElderly] = useState(0);
   const [medicalIssues, setMedicalIssues] = useState("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
+  const [selectedAttraction, setSelectedAttraction] = useState<string>("");
+
+  useEffect(() => {
+    const attraction = searchParams.get('attraction');
+    if (attraction) {
+      setSelectedAttraction(attraction);
+      toast.success(`Pre-selected attraction: ${attraction}`, {
+        duration: 3000,
+      });
+    }
+  }, [searchParams]);
 
   const ticketTypes = [
     { 
@@ -78,6 +91,14 @@ export const TicketBooking = () => {
 
   return (
     <div className="space-y-6">
+      {/* Pre-selected Attraction */}
+      {selectedAttraction && (
+        <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
+          <h3 className="font-semibold text-primary mb-1">Selected Attraction</h3>
+          <p className="text-sm">{selectedAttraction}</p>
+        </div>
+      )}
+      
       {/* Ticket Type Selection */}
       <div>
         <Label className="text-sm font-medium mb-3 block">Select Ticket Type</Label>

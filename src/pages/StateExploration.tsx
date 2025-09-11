@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Navigation } from "@/components/Navigation";
-import { SafetyMap } from "@/components/SafetyMap";
 import { SafetyChart } from "@/components/SafetyChart";
+import { AttractionSafetyMap } from "@/components/AttractionSafetyMap";
 import { AlertTriangle, MapPin, Shield, TrendingUp, Navigation2, Clock } from "lucide-react";
 import { toast } from "sonner";
 
@@ -200,14 +200,14 @@ const StateExploration = () => {
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-primary" />
-                    Interactive Safety Map - {activeRoute}
+                    Interactive Attraction Safety Map
                   </span>
-                  <Badge variant="secondary" className="animate-pulse">Live</Badge>
+                  <Badge variant="secondary" className="animate-pulse">Live GPS</Badge>
                 </CardTitle>
-                <CardDescription>Real-time route visualization with safety zones and checkpoints</CardDescription>
+                <CardDescription>Discover nearby attractions with safety routes and real-time information</CardDescription>
               </CardHeader>
               <CardContent>
-                <SafetyMap  routeName={activeRoute} />
+                <AttractionSafetyMap onAttractionSelect={(attraction) => console.log('Selected:', attraction)} />
               </CardContent>
             </Card>
 

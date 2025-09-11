@@ -130,36 +130,7 @@ export const GeofenceMap = ({ currentZone, onZoneChange }: GeofenceMapProps) => 
         </div>
       </div>
 
-      {/* Safety Recommendations */}
-      <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
-        <h3 className="font-semibold mb-2 text-primary">Safety Recommendations</h3>
-        <div className="space-y-1 text-sm">
-          {currentZone === "Base Camp" && (
-            <>
-              <p>✓ You are in a safe area with full facilities</p>
-              <p>✓ Emergency services available nearby</p>
-            </>
-          )}
-          {currentZone === "Trail Path" && (
-            <>
-              <p>✓ Stay on marked trails</p>
-              <p>✓ Regular check-ins recommended</p>
-            </>
-          )}
-          {currentZone === "Rocky Terrain" && (
-            <>
-              <p>⚠️ Use proper hiking equipment</p>
-              <p>⚠️ Watch for loose rocks and uneven surfaces</p>
-            </>
-          )}
-          {(currentZone === "Cliff Edge" || currentZone === "Weather Alert Zone") && (
-            <>
-              <p>🚫 High-risk area - immediate evacuation recommended</p>
-              <p>🚫 Do not proceed without professional guide</p>
-            </>
-          )}
-        </div>
-      </div>
+      
     </div>
   );
 };

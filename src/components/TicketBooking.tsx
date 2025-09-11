@@ -2,15 +2,17 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Users, Calendar, CreditCard, Clock } from "lucide-react";
+import { Users, Calendar, CreditCard, Clock, HeartPulse } from "lucide-react";
 import { toast } from "sonner";
 
 export const TicketBooking = () => {
   const [bookingType, setBookingType] = useState<string>("");
   const [visitors, setVisitors] = useState(1);
+  const [kids, setKids] = useState(0);
+  const [elderly, setElderly] = useState(0);
+  const [medicalIssues, setMedicalIssues] = useState("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
 
   const ticketTypes = [
@@ -23,8 +25,8 @@ export const TicketBooking = () => {
     { 
       id: "family", 
       name: "Family Package", 
-      price: 180, 
-      description: "Up to 4 people with enhanced group tracking" 
+      price: 40,   // price per person now
+      description: "Up to 10 people allowed, ₹40 per person" 
     },
     { 
       id: "group", 
@@ -49,7 +51,17 @@ export const TicketBooking = () => {
     }
 
     const selectedTicket = ticketTypes.find(t => t.id === bookingType);
-    const totalPrice = selectedTicket ? selectedTicket.price * (bookingType === "family" ? 1 : visitors) : 0;
+    let totalPrice = 0;
+
+    if (selectedTicket) {
+      if (bookingType === "individual") {
+        totalPrice = selectedTicket.price * visitors;
+      } else if (bookingType === "family") {
+        totalPrice = selectedTicket.price * visitors;
+      } else if (bookingType === "group") {
+        totalPrice = selectedTicket.price * visitors;
+      }
+    }
 
     toast.success(`🎫 Booking confirmed! Total: ₹${totalPrice}. RFID bands will be assigned at entry.`, {
       duration: 4000,
@@ -76,7 +88,10 @@ export const TicketBooking = () => {
               className={`cursor-pointer transition-colors hover:bg-muted/50 ${
                 bookingType === ticket.id ? "border-primary bg-primary/5" : ""
               }`}
-              onClick={() => setBookingType(ticket.id)}
+              onClick={() => {
+                setBookingType(ticket.id);
+                setVisitors(1);
+              }}
             >
               <CardContent className="p-4">
                 <div className="flex justify-between items-start mb-2">
@@ -87,7 +102,7 @@ export const TicketBooking = () => {
                   <div className="text-right">
                     <div className="text-lg font-bold text-primary">₹{ticket.price}</div>
                     <div className="text-xs text-muted-foreground">
-                      {ticket.id === "group" ? "per person" : ticket.id === "family" ? "for 4 people" : "per ticket"}
+                      {ticket.id === "group" ? "per person" : ticket.id === "family" ? "per person" : "per ticket"}
                     </div>
                   </div>
                 </div>
@@ -97,8 +112,8 @@ export const TicketBooking = () => {
         </div>
       </div>
 
-      {/* Number of Visitors (if individual or group) */}
-      {(bookingType === "individual" || bookingType === "group") && (
+      {/* Number of Visitors (for family & group only) */}
+      {(bookingType === "family" || bookingType === "group") && (
         <div>
           <Label htmlFor="visitors" className="text-sm font-medium">Number of Visitors</Label>
           <div className="flex items-center gap-3 mt-2">
@@ -106,8 +121,8 @@ export const TicketBooking = () => {
             <Input
               id="visitors"
               type="number"
-              min="1"
-              max={bookingType === "group" ? "50" : "10"}
+              min={bookingType === "group" ? "10" : "1"}
+              max={bookingType === "family" ? "10" : "50"}
               value={visitors}
               onChange={(e) => setVisitors(parseInt(e.target.value) || 1)}
               className="w-24"
@@ -117,6 +132,47 @@ export const TicketBooking = () => {
             </span>
           </div>
         </div>
+      )}
+
+      {/* Kids, Elderly & Medical Issues (family or group only) */}
+      {(bookingType === "family" || bookingType === "group") && (
+        <Card>
+          <CardContent className="p-4 space-y-4">
+            <div>
+              <Label className="text-sm font-medium">Number of Kids</Label>
+              <Input
+                type="number"
+                min="0"
+                value={kids}
+                onChange={(e) => setKids(parseInt(e.target.value) || 0)}
+                className="mt-1 w-24"
+              />
+            </div>
+            <div>
+              <Label className="text-sm font-medium">Number of Elderly People</Label>
+              <Input
+                type="number"
+                min="0"
+                value={elderly}
+                onChange={(e) => setElderly(parseInt(e.target.value) || 0)}
+                className="mt-1 w-24"
+              />
+            </div>
+            <div>
+              <Label className="text-sm font-medium flex items-center gap-2">
+                <HeartPulse className="h-4 w-4 text-muted-foreground" />
+                Medical Issues (if any)
+              </Label>
+              <textarea
+                value={medicalIssues}
+                onChange={(e) => setMedicalIssues(e.target.value)}
+                className="mt-2 w-full border rounded-md p-2 text-sm"
+                rows={3}
+                placeholder="E.g. Diabetes, Heart condition, Asthma..."
+              />
+            </div>
+          </CardContent>
+        </Card>
       )}
 
       {/* Time Slot Selection */}
@@ -168,13 +224,33 @@ export const TicketBooking = () => {
               <div className="flex justify-between">
                 <span>Visitors:</span>
                 <span className="font-semibold">
-                  {bookingType === "family" ? "4 people" : `${visitors} ${visitors === 1 ? "person" : "people"}`}
+                  {visitors} {visitors === 1 ? "person" : "people"}
                 </span>
               </div>
+
+              {(bookingType === "family" || bookingType === "group") && (
+                <>
+                  <div className="flex justify-between">
+                    <span>Kids:</span>
+                    <span className="font-semibold">{kids}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Elderly:</span>
+                    <span className="font-semibold">{elderly}</span>
+                  </div>
+                  {medicalIssues && (
+                    <div className="flex justify-between">
+                      <span>Medical Issues:</span>
+                      <span className="font-semibold text-red-600">{medicalIssues}</span>
+                    </div>
+                  )}
+                </>
+              )}
+
               <div className="flex justify-between border-t pt-2 font-semibold text-primary">
                 <span>Total Amount:</span>
                 <span>
-                  ₹{ticketTypes.find(t => t.id === bookingType)?.price! * (bookingType === "family" ? 1 : visitors)}
+                  ₹{ticketTypes.find(t => t.id === bookingType)?.price! * visitors}
                 </span>
               </div>
             </div>
@@ -200,3 +276,4 @@ export const TicketBooking = () => {
     </div>
   );
 };
+

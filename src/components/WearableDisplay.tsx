@@ -90,27 +90,7 @@ export const WearableDisplay = ({ connected, batteryLevel, currentZone }: Wearab
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="space-y-2">
-        <Button 
-          variant={connected ? "destructive" : "secondary"} 
-          size="sm" 
-          className="w-full"
-          disabled={!connected}
-        >
-          <AlertTriangle className="h-4 w-4 mr-2" />
-          Emergency SOS
-        </Button>
-        
-        <div className="grid grid-cols-2 gap-2">
-          <Button variant="outline" size="sm" disabled={!connected}>
-            Check-in
-          </Button>
-          <Button variant="outline" size="sm" disabled={!connected}>
-            Share Status
-          </Button>
-        </div>
-      </div>
+      
 
       {/* Device Info */}
       <div className="text-xs text-muted-foreground bg-muted/20 p-3 rounded">

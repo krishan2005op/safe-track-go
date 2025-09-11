@@ -6,9 +6,40 @@ import { Progress } from "@/components/ui/progress";
 import { Navigation } from "@/components/Navigation";
 import { WearableDisplay } from "@/components/WearableDisplay";
 import { GeofenceMap } from "@/components/GeofenceMap";
-import { QRCodeDisplay } from "@/components/QRCodeDisplay";
+
 import { AlertTriangle, Mountain, Watch, MapPin, Shield, Zap, Wifi } from "lucide-react";
 import { toast } from "sonner";
+import QRCode from "react-qr-code";
+
+const demoTourist = {
+  id: "TST12345",
+  name: "Aarav Mehta",
+  age: 28,
+  nationality: "Indian",
+  bloodGroup: "B+",
+  emergencyContact: "+91-9876543210",
+  status: "Active"
+};
+type Tourist = {
+  id: string;
+  name: string;
+  age: number;
+  nationality: string;
+  bloodGroup: string;
+  emergencyContact: string;
+  status: string;
+};
+
+export const QRCodeDisplay = ({ tourist }: { tourist: Tourist }) => {
+  
+  const qrData = JSON.stringify(tourist);
+
+  return (
+    <div className="flex justify-center items-center p-4 bg-white rounded-lg">
+      <QRCode value={qrData} size={150} />
+    </div>
+  );
+};
 
 const Adventure = () => {
   const [wearableConnected, setWearableConnected] = useState(true);
@@ -109,10 +140,7 @@ const Adventure = () => {
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm text-blue-200">Current Zone</p>
-                  <p className="font-semibold">{currentZone}</p>
-                </div>
+                
               </div>
             </CardContent>
           </Card>
@@ -141,23 +169,66 @@ const Adventure = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5 text-primary" />
-                  Tourist ID
-                </CardTitle>
-                <CardDescription>QR-based identification and tracking</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <QRCodeDisplay touristId={touristId} />
-              </CardContent>
-            </Card>
+               <Card className="shadow-card">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Shield className="h-5 w-5 text-primary" />
+          Tourist ID
+        </CardTitle>
+        <CardDescription>QR-based identification and tracking</CardDescription>
+      </CardHeader>
 
+      <CardContent>
+        {/* Digital Tourist ID + QR */}
+        <div className="bg-gray-50 rounded-lg p-4 text-center mb-4">
+          <div className="font-semibold">Digital Tourist ID</div>
+          <Badge variant="secondary" className="mt-1">
+            ID: {demoTourist.id}
+          </Badge>
+          <p className="text-xs text-gray-500 mt-2">
+            Scan for instant verification and emergency information
+          </p>
+
+          {/* ✅ QR Code */}
+          <div className="flex justify-center mt-4">
+            <QRCode value={JSON.stringify(demoTourist)} size={120} />
+          </div>
+        </div>
+
+        {/* ✅ Tourist Details below QR */}
+        <div className="space-y-2">
+          <div className="flex justify-between">
+            <span className="text-gray-600">Tourist Name</span>
+            <span className="font-semibold">{demoTourist.name}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Age</span>
+            <span className="font-semibold">{demoTourist.age}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Nationality</span>
+            <span className="font-semibold">{demoTourist.nationality}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Blood Group</span>
+            <span className="font-semibold">{demoTourist.bloodGroup}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Emergency Contact</span>
+            <span className="font-semibold">{demoTourist.emergencyContact}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-600">Status</span>
+            <span className="font-semibold">{demoTourist.status}</span>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+            
             {/* Emergency Actions */}
             <Card className="shadow-card border-l-4 border-l-danger">
               <CardHeader>
-                <CardTitle className="text-danger">Emergency Actions</CardTitle>
+                <CardTitle className="text-danger">Emergency Actions (this is shown on hiker app or band)</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <Button 
@@ -167,10 +238,6 @@ const Adventure = () => {
                 >
                   <AlertTriangle className="h-4 w-4 mr-2" />
                   SOS Emergency
-                </Button>
-                <Button variant="outline" className="w-full">
-                  <Wifi className="h-4 w-4 mr-2" />
-                  Share Location
                 </Button>
                 <Button variant="outline" className="w-full">
                   <MapPin className="h-4 w-4 mr-2" />
@@ -187,7 +254,7 @@ const Adventure = () => {
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-primary" />
-                    Geo-fencing Safety Map
+                    Geo-fencing Safety Map (this is shown to admin)
                   </span>
                   <Badge variant="secondary" className="animate-pulse">Live Tracking</Badge>
                 </CardTitle>
@@ -199,40 +266,7 @@ const Adventure = () => {
             </Card>
 
             {/* Zone Information */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Safety Zones</CardTitle>
-                <CardDescription>Understanding risk levels and recommended precautions</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {zones.map((zone, index) => (
-                    <div 
-                      key={index}
-                      className={`p-4 rounded-lg border transition-colors ${
-                        currentZone === zone.name 
-                          ? "border-primary bg-primary/5" 
-                          : "border-border bg-muted/20"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="font-semibold">{zone.name}</h3>
-                        <Badge variant={getZoneBadge(zone.risk)}>
-                          {zone.risk} Risk
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground">{zone.description}</p>
-                      {currentZone === zone.name && (
-                        <div className="mt-2 flex items-center gap-2 text-sm font-medium text-primary">
-                          <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                          Current Location
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            
 
             {/* Activity Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -243,15 +277,6 @@ const Adventure = () => {
                   <div className="text-sm text-muted-foreground">Distance Covered</div>
                 </CardContent>
               </Card>
-              
-              <Card className="shadow-card text-center">
-                <CardContent className="pt-6">
-                  <Mountain className="h-8 w-8 mx-auto mb-2 text-primary" />
-                  <div className="text-2xl font-bold text-primary">285m</div>
-                  <div className="text-sm text-muted-foreground">Elevation Gain</div>
-                </CardContent>
-              </Card>
-              
               <Card className="shadow-card text-center">
                 <CardContent className="pt-6">
                   <Watch className="h-8 w-8 mx-auto mb-2 text-primary" />

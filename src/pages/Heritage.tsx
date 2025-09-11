@@ -8,7 +8,12 @@ import { CrowdHeatmap } from "@/components/CrowdHeatmap";
 import { TicketBooking } from "@/components/TicketBooking";
 import { AlertTriangle, MapPin, Users, Wifi, Shield, CreditCard } from "lucide-react";
 import { toast } from "sonner";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 const Heritage = () => {
   const [selectedSite, setSelectedSite] = useState("Red Fort Delhi");
   const [rfidId] = useState("RFID-2024-0891");
@@ -20,11 +25,11 @@ const Heritage = () => {
     { name: "Lotus Temple", crowd: "Medium", safety: "Caution", visitors: 723 }
   ];
 
-  const handleSOSAlert = () => {
-    toast.error("🚨 SOS Alert Triggered! Emergency services have been notified. Help is on the way!", {
-      duration: 5000,
-    });
-  };
+  const handleSOSAlert = (type: string) => {
+  toast.error(`🚨 SOS Alert Triggered! (${type}) Emergency services have been notified. Help is on the way!`, {
+    duration: 5000,
+  });
+};
 
   const getCrowdBadgeVariant = (level: string) => {
     switch (level) {
@@ -68,15 +73,35 @@ const Heritage = () => {
                     <p className="text-sm text-blue-200">ID: {rfidId}</p>
                   </div>
                 </div>
-                <Button 
-                  variant="destructive" 
-                  size="sm"
-                  className="animate-pulse-glow"
-                  onClick={handleSOSAlert}
-                >
-                  <AlertTriangle className="h-4 w-4 mr-2" />
-                  SOS
-                </Button>
+                <DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button 
+      variant="destructive" 
+      size="sm"
+      className="animate-pulse-glow"
+    >
+      <AlertTriangle className="h-4 w-4 mr-2" />
+      SOS
+    </Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent className="w-64">
+    <DropdownMenuItem onClick={() => handleSOSAlert("Medical Emergency")}>
+      Medical Emergency
+    </DropdownMenuItem>
+    <DropdownMenuItem onClick={() => handleSOSAlert("Women Safety Concern")}>
+      Women Safety Concern
+    </DropdownMenuItem>
+    <DropdownMenuItem onClick={() => handleSOSAlert("Elderly / Child in Danger")}>
+      Elderly / Child in Danger
+    </DropdownMenuItem>
+    <DropdownMenuItem onClick={() => handleSOSAlert("Fire Emergency")}>
+      Fire Emergency
+    </DropdownMenuItem>
+    <DropdownMenuItem onClick={() => handleSOSAlert("Police Assistance")}>
+      Police Assistance
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
               </div>
             </CardContent>
           </Card>
@@ -92,7 +117,7 @@ const Heritage = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CreditCard className="h-5 w-5 text-primary" />
-                  Ticket Booking
+                  Ticket Booking (this is shown only to user)
                 </CardTitle>
                 <CardDescription>Book tickets for heritage sites with crowd-aware pricing</CardDescription>
               </CardHeader>
@@ -104,7 +129,7 @@ const Heritage = () => {
             {/* Site Selection */}
             <Card className="shadow-card">
               <CardHeader>
-                <CardTitle>Select Heritage Site</CardTitle>
+                <CardTitle>Select Heritage Site (this is shown only to user)</CardTitle>
                 <CardDescription>Choose from available heritage and religious sites</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -144,7 +169,7 @@ const Heritage = () => {
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
                     <Shield className="h-5 w-5 text-primary" />
-                    Crowd Heatmap - {selectedSite}
+                    Crowd Heatmap - {selectedSite}  (this is shown to admin)
                   </span>
                   <Badge variant="secondary">Live</Badge>
                 </CardTitle>
@@ -158,7 +183,7 @@ const Heritage = () => {
             {/* Current Status */}
             <Card className="shadow-card">
               <CardHeader>
-                <CardTitle>Current Site Status</CardTitle>
+                <CardTitle>Current Site Status (this is shown to admin)</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -193,7 +218,7 @@ const Heritage = () => {
               </CardContent>
             </Card>
 
-            {/* Emergency Information */}
+            {/* Emergency Information
             <Card className="shadow-card border-l-4 border-l-primary">
               <CardHeader>
                 <CardTitle className="text-primary">Emergency Information</CardTitle>
@@ -217,7 +242,7 @@ const Heritage = () => {
                   View Site Safety Plan
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </div>

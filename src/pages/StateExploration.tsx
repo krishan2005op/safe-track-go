@@ -15,39 +15,39 @@ const StateExploration = () => {
 
   const routes = [
     { 
-      name: "Delhi Heritage Circuit", 
-      safety: 87, 
-      distance: "15.2 km", 
-      duration: "4.5 hours",
+      name: "Red Fort", 
+      safety: 85, 
+      distance: "2.3 km", 
+      duration: "8 min",
       status: "Recommended" 
     },
     { 
-      name: "Rajasthan Desert Trail", 
-      safety: 72, 
-      distance: "45.8 km", 
-      duration: "8 hours",
+      name: "Qutub Minar", 
+      safety: 78, 
+      distance: "12.5 km", 
+      duration: "25 min",
       status: "Caution" 
     },
     { 
-      name: "Kerala Backwaters", 
+      name: "India Gate", 
       safety: 92, 
-      distance: "28.6 km", 
-      duration: "6 hours",
+      distance: "5.1 km", 
+      duration: "15 min",
       status: "Safe" 
     },
     { 
-      name: "Himalayan Foothills", 
-      safety: 65, 
-      distance: "67.3 km", 
-      duration: "12 hours",
-      status: "High Risk" 
+      name: "Lotus Temple", 
+      safety: 88, 
+      distance: "8.7", 
+      duration: "20 min.",
+      status: "Safe" 
     }
   ];
 
   useEffect(() => {
     // Simulate emergency alert
     const timer = setTimeout(() => {
-      toast.error("🚨 Emergency Alert: Heavy rainfall reported on Himalayan Foothills route. Consider alternative paths.", {
+      toast.error("🚨 Emergency Alert: Heavy Traffic reported on Qutub Minar route. Consider alternative paths.", {
         duration: 6000,
         action: {
           label: "View Details",
@@ -75,6 +75,11 @@ const StateExploration = () => {
       default:
         return "destructive";
     }
+  };
+  const handleSOSAlert = () => {
+    toast.error("🚨 SOS Alert Activated! Your location sent to nearby Police Station", {
+      duration: 6000,
+    });
   };
 
   return (
@@ -185,7 +190,7 @@ const StateExploration = () => {
                     <span className="text-sm">Route optimization enabled</span>
                   </div>
                 </div>
-                <Button className="w-full mt-4 bg-gradient-danger" size="sm">
+                <Button className="w-full mt-4 bg-gradient-danger" size="sm" onClick={handleSOSAlert}>
                   <AlertTriangle className="h-4 w-4 mr-2" />
                   Emergency SOS
                 </Button>
@@ -222,6 +227,7 @@ const StateExploration = () => {
                 </CardHeader>
                 <CardContent>
                   <SafetyChart type="hourly" />
+
                 </CardContent>
               </Card>
 
@@ -237,47 +243,7 @@ const StateExploration = () => {
             </div>
 
             {/* Route Checkpoints */}
-            <Card className="shadow-card">
-              <CardHeader>
-                <CardTitle>Route Checkpoints</CardTitle>
-                <CardDescription>Key stops and safety points along your route</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-safe/10 rounded-lg border border-safe/20">
-                    <div>
-                      <h3 className="font-semibold">Start Point - Tourism Office</h3>
-                      <p className="text-sm text-muted-foreground">Registration and safety briefing</p>
-                    </div>
-                    <Badge className="status-safe">Completed</Badge>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg border border-primary/20">
-                    <div>
-                      <h3 className="font-semibold">Checkpoint 1 - Heritage Museum</h3>
-                      <p className="text-sm text-muted-foreground">Rest area with emergency facilities</p>
-                    </div>
-                    <Badge variant="default">Current</Badge>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                    <div>
-                      <h3 className="font-semibold">Checkpoint 2 - Scenic Viewpoint</h3>
-                      <p className="text-sm text-muted-foreground">Photo stop with safety barrier</p>
-                    </div>
-                    <Badge variant="secondary">Upcoming</Badge>
-                  </div>
-                  
-                  <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                    <div>
-                      <h3 className="font-semibold">End Point - Cultural Center</h3>
-                      <p className="text-sm text-muted-foreground">Final check-out and feedback</p>
-                    </div>
-                    <Badge variant="secondary">Pending</Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+       
           </div>
         </div>
       </div>

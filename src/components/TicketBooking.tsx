@@ -91,13 +91,7 @@ export const TicketBooking = () => {
 
   return (
     <div className="space-y-6">
-      {/* Pre-selected Attraction */}
-      {selectedAttraction && (
-        <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
-          <h3 className="font-semibold text-primary mb-1">Selected Attraction</h3>
-          <p className="text-sm">{selectedAttraction}</p>
-        </div>
-      )}
+      
       
       {/* Ticket Type Selection */}
       <div>

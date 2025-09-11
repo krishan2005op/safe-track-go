@@ -118,41 +118,44 @@ export const AttractionSafetyMap = ({ onAttractionSelect }: AttractionSafetyMapP
         </div>
 
         {/* Roads */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none">
-          {roads.map((road, index) => {
-            const shouldShow = !showRoute || 
-              attractions.find(a => a.id === showRoute && (a === road.from || a === road.to));
-            
-            if (!shouldShow) return null;
+        {/* Roads (only from current location to selected attraction) */}
+<svg className="absolute inset-0 w-full h-full pointer-events-none">
+  {roads.map((road, index) => {
+    // only show route if "from" is currentLocation AND "to" is the selected attraction
+    const shouldShow =
+      showRoute &&
+      road.from === currentLocation &&
+      attractions.find(a => a.id === showRoute && a === road.to);
 
-            return road.waypoints.map((waypoint, wpIndex) => (
-              <g key={`road-${index}-${wpIndex}`}>
-                {wpIndex === 0 && (
-                  <line
-                    x1={`${road.from.x}%`}
-                    y1={`${road.from.y}%`}
-                    x2={`${waypoint.x}%`}
-                    y2={`${waypoint.y}%`}
-                    stroke={getRoadColor(road.safety)}
-                    strokeWidth="4"
-                    strokeDasharray={road.safety === "caution" ? "8,4" : "0"}
-                    opacity={showRoute ? 1 : 0.6}
-                  />
-                )}
-                <line
-                  x1={`${waypoint.x}%`}
-                  y1={`${waypoint.y}%`}
-                  x2={`${road.to.x}%`}
-                  y2={`${road.to.y}%`}
-                  stroke={getRoadColor(road.safety)}
-                  strokeWidth="4" 
-                  strokeDasharray={road.safety === "caution" ? "8,4" : "0"}
-                  opacity={showRoute ? 1 : 0.6}
-                />
-              </g>
-            ));
-          })}
-        </svg>
+    if (!shouldShow) return null;
+
+    return road.waypoints.map((waypoint, wpIndex) => (
+      <g key={`road-${index}-${wpIndex}`}>
+        {wpIndex === 0 && (
+          <line
+            x1={`${road.from.x}%`}
+            y1={`${road.from.y}%`}
+            x2={`${waypoint.x}%`}
+            y2={`${waypoint.y}%`}
+            stroke={getRoadColor(road.safety)}
+            strokeWidth="6"
+            opacity={1}
+          />
+        )}
+        <line
+          x1={`${waypoint.x}%`}
+          y1={`${waypoint.y}%`}
+          x2={`${road.to.x}%`}
+          y2={`${road.to.y}%`}
+          stroke={getRoadColor(road.safety)}
+          strokeWidth="6"
+          opacity={1}
+        />
+      </g>
+    ));
+  })}
+</svg>
+
 
         {/* Current Location */}
         <div
@@ -270,16 +273,6 @@ export const AttractionSafetyMap = ({ onAttractionSelect }: AttractionSafetyMapP
           </div>
         </div>
 
-        {/* Safety Tips */}
-        <div className="absolute top-4 right-4 bg-white/90 p-3 rounded-lg shadow-card text-xs max-w-48">
-          <h4 className="font-semibold mb-1">Safety Tips</h4>
-          <ul className="space-y-1 text-muted-foreground">
-            <li>• Follow highlighted safe routes</li>
-            <li>• Check attraction safety scores</li>
-            <li>• Book tickets in advance</li>
-            <li>• Stay connected via GPS</li>
-          </ul>
-        </div>
       </div>
 
       {/* Nearby Attractions List */}

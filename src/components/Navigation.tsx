@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { AlertTriangle, Menu, Shield, X } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -88,9 +88,11 @@ export const Navigation = () => {
                     <Shield className="h-6 w-6 text-primary" />
                     <span className="text-lg font-bold text-primary">SafeTour</span>
                   </div>
-                  <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)}>
-                    <X className="h-4 w-4" />
-                  </Button>
+                  <SheetClose asChild>
+                    <Button variant="ghost" size="sm">
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </SheetClose>
                 </div>
                 
                 <div className="space-y-2">

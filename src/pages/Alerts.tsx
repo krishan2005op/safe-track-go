@@ -43,6 +43,14 @@ const Alerts = () => {
     }
   ];
 
+  // Transform alerts for IncidentMap component
+  const mapAlerts = recentAlerts.map((alert, index) => ({
+    id: alert.id,
+    x: [25, 65, 45][index] || 50, // Mock x coordinates
+    y: [30, 20, 60][index] || 40, // Mock y coordinates
+    description: alert.description
+  }));
+
   useEffect(() => {
     // Simulate real-time alerts
     const interval = setInterval(() => {
@@ -212,7 +220,7 @@ const Alerts = () => {
                 <CardDescription>Real-time visualization of incidents and response teams</CardDescription>
               </CardHeader>
               <CardContent>
-                <IncidentMap alerts={recentAlerts} />
+                <IncidentMap alerts={mapAlerts} />
               </CardContent>
             </Card>
 

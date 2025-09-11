@@ -16,20 +16,20 @@ const Alerts = () => {
   const recentAlerts = [
     {
       id: 1,
-      type: "Stampede Alert",
-      location: "Red Fort Main Gate",
+      type: "Medical emergency",
+      location: "Rocky Terrain",
       time: "2 minutes ago",
       severity: "Critical",
       status: "Active",
-      description: "Crowd density exceeding safe limits at main entrance"
+      description: "Tourist requires immediate medical assistance"
     },
     {
       id: 2,
-      type: "Medical Emergency",
-      location: "Qutub Minar Parking",
-      time: "15 minutes ago",
-      severity: "High",
-      status: "Responding",
+      type: "Medical emergency",
+      location: "Trial Path",
+      time: "1 minutes ago",
+      severity: "Critical",
+      status: "Active",
       description: "Tourist requires immediate medical assistance"
     },
     {
@@ -185,7 +185,7 @@ const Alerts = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-card">
+            {/* <Card className="shadow-card">
               <CardHeader>
                 <CardTitle>Alert Timeline</CardTitle>
                 <CardDescription>Chronological view of recent incidents</CardDescription>
@@ -193,7 +193,7 @@ const Alerts = () => {
               <CardContent>
                 <AlertsTimeline />
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Incident Map & Situational Awareness */}
@@ -231,14 +231,7 @@ const Alerts = () => {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button 
-                variant="destructive" 
-                className="h-20 flex flex-col gap-2 animate-pulse-glow"
-                onClick={() => toast.error("🚨 Mass evacuation protocol initiated! All personnel to emergency positions.")}
-              >
-                <AlertTriangle className="h-6 w-6" />
-                Mass Evacuation
-              </Button>
+              
               
               <Button 
                 variant="default" 

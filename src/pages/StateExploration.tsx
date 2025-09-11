@@ -171,31 +171,7 @@ const StateExploration = () => {
             </Card>
 
             {/* Current Location Status */}
-            <Card className="shadow-card border-l-4 border-l-primary">
-              <CardHeader>
-                <CardTitle className="text-primary">Your Status</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-safe rounded-full animate-pulse"></div>
-                    <span className="text-sm">GPS tracking active</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Shield className="h-4 w-4 text-primary" />
-                    <span className="text-sm">Emergency contacts synced</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Navigation2 className="h-4 w-4 text-primary" />
-                    <span className="text-sm">Route optimization enabled</span>
-                  </div>
-                </div>
-                <Button className="w-full mt-4 bg-gradient-danger" size="sm" onClick={handleSOSAlert}>
-                  <AlertTriangle className="h-4 w-4 mr-2" />
-                  Emergency SOS
-                </Button>
-              </CardContent>
-            </Card>
+            
           </div>
 
           {/* Map and Charts */}

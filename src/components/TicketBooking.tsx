@@ -17,6 +17,8 @@ export const TicketBooking = () => {
   const [medicalIssues, setMedicalIssues] = useState("");
   const [selectedSlot, setSelectedSlot] = useState<string>("");
   const [selectedAttraction, setSelectedAttraction] = useState<string>("");
+  const [kidsWithIssues, setKidsWithIssues] = useState(0);
+  const [elderlyWithIssues, setElderlyWithIssues] = useState(0);
 
   useEffect(() => {
     const attraction = searchParams.get('attraction');
@@ -153,26 +155,52 @@ export const TicketBooking = () => {
       {(bookingType === "family" || bookingType === "group") && (
         <Card>
           <CardContent className="p-4 space-y-4">
-            <div>
-              <Label className="text-sm font-medium">Number of Kids</Label>
-              <Input
-                type="number"
-                min="0"
-                value={kids}
-                onChange={(e) => setKids(parseInt(e.target.value) || 0)}
-                className="mt-1 w-24"
-              />
-            </div>
-            <div>
-              <Label className="text-sm font-medium">Number of Elderly People</Label>
-              <Input
-                type="number"
-                min="0"
-                value={elderly}
-                onChange={(e) => setElderly(parseInt(e.target.value) || 0)}
-                className="mt-1 w-24"
-              />
-            </div>
+            <div className="flex items-center space-x-6">
+        <div>
+          <Label className="text-sm font-medium">Number of Kids</Label>
+          <Input
+            type="number"
+            min="0"
+            value={kids}
+            onChange={(e) => setKids(parseInt(e.target.value) || 0)}
+            className="mt-1 w-24"
+          />
+        </div>
+        <div>
+          <Label className="text-sm font-medium">Kids with Medical Issues</Label>
+          <Input
+            type="number"
+            min="0"
+            max={kids}
+            value={kidsWithIssues}
+            onChange={(e) => setKidsWithIssues(parseInt(e.target.value) || 0)}
+            className="mt-1 w-24"
+          />
+        </div>
+      </div>
+        <div className="flex items-center space-x-6">
+        <div>
+          <Label className="text-sm font-medium">Number of Elderly People</Label>
+          <Input
+            type="number"
+            min="0"
+            value={elderly}
+            onChange={(e) => setElderly(parseInt(e.target.value) || 0)}
+            className="mt-1 w-24"
+          />
+        </div>
+        <div>
+          <Label className="text-sm font-medium">Elderly with Medical Issues</Label>
+          <Input
+            type="number"
+            min="0"
+            max={elderly}
+            value={elderlyWithIssues}
+            onChange={(e) => setElderlyWithIssues(parseInt(e.target.value) || 0)}
+            className="mt-1 w-24"
+          />
+        </div>
+      </div>
             <div>
               <Label className="text-sm font-medium flex items-center gap-2">
                 <HeartPulse className="h-4 w-4 text-muted-foreground" />

@@ -9,25 +9,25 @@ interface QRCodeDisplayProps {
 }
 
 export const QRCodeDisplay = ({ touristId }: QRCodeDisplayProps) => {
-  const generateQRPattern = () => {
-    // Generate a simple QR-like pattern for demonstration
-    const size = 15;
-    const pattern = [];
+  // const generateQRPattern = () => {
+  //   // Generate a simple QR-like pattern for demonstration
+  //   const size = 15;
+  //   const pattern = [];
     
-    for (let i = 0; i < size; i++) {
-      const row = [];
-      for (let j = 0; j < size; j++) {
-        // Create a pseudo-random but deterministic pattern
-        const seed = (i * j + i + j) % 3;
-        row.push(seed === 0);
-      }
-      pattern.push(row);
-    }
+  //   for (let i = 0; i < size; i++) {
+  //     const row = [];
+  //     for (let j = 0; j < size; j++) {
+  //       // Create a pseudo-random but deterministic pattern
+  //       const seed = (i * j + i + j) % 3;
+  //       row.push(seed === 0);
+  //     }
+  //     pattern.push(row);
+  //   }
     
-    return pattern;
-  };
+  //   return pattern;
+  // };
 
-  const qrPattern = generateQRPattern();
+  // const qrPattern = generateQRPattern();
 
   const touristInfo = {
     name: "Alex Johnson",
@@ -56,7 +56,7 @@ export const QRCodeDisplay = ({ touristId }: QRCodeDisplayProps) => {
           <h3 className="font-semibold mb-4">Digital Tourist ID</h3>
           
           {/* QR Code Pattern */}
-          <div className="mx-auto mb-4 p-4 bg-white rounded-lg shadow-inner border">
+          {/* <div className="mx-auto mb-4 p-4 bg-white rounded-lg shadow-inner border">
             <div className="grid grid-cols-15 gap-px bg-gray-200 p-2 rounded">
               {qrPattern.map((row, i) => 
                 row.map((cell, j) => (
@@ -67,7 +67,7 @@ export const QRCodeDisplay = ({ touristId }: QRCodeDisplayProps) => {
                 ))
               )}
             </div>
-          </div>
+          </div> */}
           
           <div className="text-center">
             <Badge variant="secondary" className="mb-2">

@@ -207,7 +207,7 @@ const StateExploration = () => {
                 <CardDescription>Real-time route visualization with safety zones and checkpoints</CardDescription>
               </CardHeader>
               <CardContent>
-                <SafetyMap routeName={activeRoute} />
+                <SafetyMap  routeName={activeRoute} />
               </CardContent>
             </Card>
 

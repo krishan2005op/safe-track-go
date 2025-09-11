@@ -239,10 +239,6 @@ const Adventure = () => {
                   <AlertTriangle className="h-4 w-4 mr-2" />
                   SOS Emergency
                 </Button>
-                <Button variant="outline" className="w-full">
-                  <MapPin className="h-4 w-4 mr-2" />
-                  Mark Safe Spot
-                </Button>
               </CardContent>
             </Card>
           </div>

@@ -97,7 +97,7 @@ const Alerts = () => {
           <div className="flex items-center gap-4 mb-6">
             <AlertTriangle className="h-8 w-8" />
             <div>
-              <h1 className="text-3xl font-bold">Alerts & Incident Response</h1>
+              <h1 className="text-3xl font-bold">Alerts & Incident Response(this page is shown only to the admin)</h1>
               <p className="text-red-100">Real-time emergency monitoring and response coordination</p>
             </div>
           </div>

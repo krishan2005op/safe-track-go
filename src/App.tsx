@@ -8,8 +8,8 @@ import Heritage from "./pages/Heritage";
 import StateExploration from "./pages/StateExploration";
 import Adventure from "./pages/Adventure";
 import Alerts from "./pages/Alerts";
-import Innovation from "./pages/Innovation";
-import NotFound from "./pages/NotFound";
+
+
 
 const queryClient = new QueryClient();
 
@@ -25,9 +25,9 @@ const App = () => (
           <Route path="/exploration" element={<StateExploration />} />
           <Route path="/adventure" element={<Adventure />} />
           <Route path="/alerts" element={<Alerts />} />
-          <Route path="/innovation" element={<Innovation />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

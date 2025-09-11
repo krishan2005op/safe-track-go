@@ -11,12 +11,12 @@ export const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { label: "Dashboard", path: "/" },
+    // { label: "Dashboard", path: "/" },
     { label: "Heritage Sites", path: "/heritage" },
     { label: "State Exploration", path: "/exploration" },
     { label: "Adventure", path: "/adventure" },
     { label: "Alerts", path: "/alerts", hasAlert: true },
-    { label: "Innovation", path: "/innovation" }
+    
   ];
 
   const handleNavigation = (path: string) => {
@@ -36,8 +36,7 @@ export const Navigation = () => {
               <Shield className="h-6 w-6 text-white" />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-primary">SafeTour</h1>
-              <p className="text-xs text-muted-foreground">Monitoring System</p>
+              <h1 className="text-lg font-bold text-primary">Prototype of Our Project</h1>
             </div>
           </div>
 
@@ -62,17 +61,7 @@ export const Navigation = () => {
           </div>
 
           {/* Emergency Button */}
-          <div className="hidden md:flex items-center gap-2">
-            <Button 
-              variant="destructive" 
-              size="sm"
-              className="animate-pulse-glow"
-              onClick={() => handleNavigation("/alerts")}
-            >
-              <AlertTriangle className="h-4 w-4 mr-1" />
-              Emergency
-            </Button>
-          </div>
+          
 
           {/* Mobile Menu */}
           <div className="md:hidden">

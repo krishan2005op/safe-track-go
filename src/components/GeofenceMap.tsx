@@ -271,10 +271,7 @@ export const GeofenceMap = ({ currentZone, onZoneChange }: GeofenceMapProps) => 
             <span className="text-sm">Coordinates:</span>
             <span className="text-sm font-mono">{userPosition.x.toFixed(1)}°, {userPosition.y.toFixed(1)}°</span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm">Altitude:</span>
-            <span className="text-sm">1,247m</span>
-          </div>
+          
         </div>
       </div>
     </div>
